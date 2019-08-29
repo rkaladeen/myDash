@@ -1,0 +1,27 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow">
+  <a class="navbar-brand" href="#">MyDash</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+  aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse" id="navbarSupportedContent" style="flex-basis: 100%;">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }" routerLink="/dashboard">
+          <i class="fas fa-th mr-2"></i>
+          <small>MY DASHBOARD</small>
+      </a>
+      </li>
+      <li class="nav-item" *ngFor="let link of links; index as i">
+        <a class="nav-link" routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }" routerLink="{{ link[i].route }}">
+          <i class="{{ link[i].fa_icon }} mr-2"></i>
+          <small>{{ link[i].label | uppercase }}</small>
+        </a>
+      </li>
+    </ul>
+  
+  </div>
+</nav>

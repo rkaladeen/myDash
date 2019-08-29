@@ -1,0 +1,5 @@
+<div *ngFor="let item of tasks; index as i" class="jumbotron bg-light py-2 mb-0 border-bottom">
+  <p>{{ item.text }}</p>
+  <small>{{ item.due | date:shortDate }}</small>
+</div>
+

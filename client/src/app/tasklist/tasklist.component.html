@@ -1,0 +1,34 @@
+
+<div class="w-100 mt-2 mr-2 jumbotron bg-light">
+  
+
+  <button *ngFor="let item of lists" 
+    class="bg-light btn w-100 m-0 border-bottom d-flex align-items-center justify-content-between"
+    routerLink="/reminders/{{ item._id }}">
+  
+      <i class="fas fa-list-ul mr-2">
+        <span class="ml-2">{{ item.title }}</span>
+      </i>
+      
+      <span style="font-family: 'Mukta', sans-serif;">
+      {{ item.task.length }}
+      <i class="fas fa-arrow-right"></i>
+      </span>
+    
+
+  </button>
+
+  <div class="bg-light m-1 row">
+    <input type="text" class="form-control col-9">
+    <a class="btn btn-primary col-2 offset-1"
+       routerLink="/reminders/create">
+       <i class="fas fa-plus">
+       <span style="font-family: 'Mukta', sans-serif;">
+        Add List</span></i>
+    </a>
+  </div>
+
+</div>
+
+
+<router-outlet></router-outlet>

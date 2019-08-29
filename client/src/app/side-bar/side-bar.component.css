@@ -1,0 +1,16 @@
+@media (max-width: 992px) {
+  nav {
+    display: none;
+  }
+}
+
+.nav-item, * {
+  border-radius: 0;
+  text-align: left;
+  margin-bottom: .5rem;
+}
+
+.nav-link {
+  padding-left: 1rem;
+  width: 100%;
+}
