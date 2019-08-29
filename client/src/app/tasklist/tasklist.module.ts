@@ -1,7 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule, HttpClient } from '@angular/common/http'
+import { HttpClientModule } from '@angular/common/http'
 import { TaskRoutingModule } from './tasklist-routing.module';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+
 
 import { HttpService } from '../http.service'
 
@@ -16,7 +18,9 @@ import { TaskListComponent } from './tasklist.component';
   imports: [
     BrowserModule,
     TaskRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [HttpService],
   bootstrap: [TaskListComponent]

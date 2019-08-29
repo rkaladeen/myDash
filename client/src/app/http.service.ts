@@ -7,24 +7,32 @@ import { HttpClient } from '@angular/common/http';
 export class HttpService {
   constructor(private _http: HttpClient) { }
 
-  getAllTasks() {
+  getAllLists() {
     return this._http.get("/reminder");
   }
 
-  getOneTask(task_id: string) {
-    return this._http.get(`/reminder/${task_id}`);
+  getOneList(list_id: string) {
+    return this._http.get(`/reminder/${list_id}`);
   }
 
-  createTask(newTask: object) {
-    return this._http.post("/reminder", newTask);
+  createList(newList: object) {
+    return this._http.post("/reminder", newList);
   }
 
-  updateTask(updateTask: object) {
-    return this._http.put(`/reminder/${updateTask['_id']}`, updateTask);
+  updateList(updateList: object) {
+    return this._http.put(`/reminder/${updateList['_id']}`, updateList);
   }
 
-  deleteTask(deleteTask: string) {
-    return this._http.delete(`/reminder/${deleteTask}`);
+  deleteList(deleteList: string) {
+    return this._http.delete(`/reminder/${deleteList}`);
+  }
+
+  addTask(list_id:string, newTask: object) {
+    return this._http.put(`/reminder/${list_id}/add`, newTask);
+  }
+
+  checkTask(list_id:string, taskUpdate: object) {
+    return this._http.put(`/reminder/${list_id}/check`, taskUpdate);
   }
 
 }

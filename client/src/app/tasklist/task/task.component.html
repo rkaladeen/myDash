@@ -1,5 +1,20 @@
-<div *ngFor="let item of tasks; index as i" class="jumbotron bg-light py-2 mb-0 border-bottom">
-  <p>{{ item.text }}</p>
-  <small>{{ item.due | date:shortDate }}</small>
+
+<div class="jumbotron bg-light py-2 mb-0 border-bottom row mx-0">
+  <h4>{{ taskTitle }} Reminders</h4>
 </div>
 
+<div *ngFor="let item of tasks; index as i" class="jumbotron bg-light py-2 mb-0 border-bottom">
+  <i class="d-inline mr-2 far" [ngClass]="{'fa-check-square':item.completed, 'fa-square':!item.completed}" (click)="checkTask(item._id, !item.completed)"></i>
+  <p class="d-inline">{{ item.text }}</p>
+  <small class="d-block">{{ item.due | date:shortDate }}</small>
+</div>
+
+<form class="jumbotron bg-light py-2 mb-0 border-bottom row mx-0" [formGroup]="newTask">
+  <input type="text" class="form-control col-9" formControlName="text">
+  <button class="btn btn-primary col-2 offset-1"
+     (click)="addTask()" [disabled]="!newTask.valid">
+     <i class="fas fa-plus">
+     <span style="font-family: 'Mukta', sans-serif;">
+      Add Task</span></i>
+     </button>
+    </form>

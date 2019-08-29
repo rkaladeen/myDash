@@ -6,4 +6,7 @@ module.exports = app => {
   app.post("/reminder", Lists.create);
   app.put("/reminder/:_id", Lists.update);
   app.delete("/reminder/:_id", Lists.remove);
+  //Task Routes
+  app.put("/reminder/:_id/add", Lists.addTask);
+  app.put("/reminder/:_id/check", Lists.checkTask);
 }
