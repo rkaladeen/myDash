@@ -15,23 +15,23 @@
       <h5 class="d-inline mr-2" style="font-family: 'Mukta', sans-serif;">{{ item.task.length }}</h5>
       <i class="fas fa-arrow-right text-success"></i>
     </div>
-    
-
   </button>
 
   <form class="bg-light m-1 row" [formGroup]="newList">
-    <input type="text" class="form-control col-9" formControlName="title" placeholder="New List (3 to 10 Characters)">
+    <input type="text" 
+           class="form-control col-9" 
+           formControlName="title" 
+           placeholder="New List (3 to 10 Characters)">
     <button class="btn btn-outline-primary col-2 offset-1"
-       (click)="addList()" [disabled]="!newList.valid">
-       <i class="fas fa-plus">
-       <span style="font-family: 'Mukta', sans-serif;">
-        Add List</span></i>
-       </button>
-      </form>
+            (click)="addList()" 
+            [disabled]="!newList.valid">
+            <i class="fas fa-plus">
+            <span style="font-family: 'Mukta', sans-serif;">
+                  Add List
+            </span></i>
+    </button>
+  </form>
 
 </div>
-
-<!-- <p>{{ test }}</p> -->
-
 
 <router-outlet (activate)="onChange($event)"></router-outlet>

@@ -13,6 +13,7 @@ export class TaskComponent implements OnInit {
   taskTitle: any;
   tasks: any;
   newTask: FormGroup;
+  editTask: FormGroup
   @Output() updateList: EventEmitter<any> = new EventEmitter();
   
   constructor(
@@ -24,6 +25,7 @@ export class TaskComponent implements OnInit {
   ngOnInit() {
     this.getParam();
     this.taskForm();
+    this.editForm();
   }
 
   taskForm() {
@@ -34,6 +36,28 @@ export class TaskComponent implements OnInit {
         Validators.minLength(3),
         Validators.maxLength(50)
       ])
+    })
+  }
+
+  editForm() {
+    this.editTask = new FormGroup ({
+           _id: new FormControl(''),
+          text: new FormControl(''),
+           due: new FormControl(''),
+      priority: new FormControl(''),
+    })
+  }
+
+  fillForm(task_id) {
+    let observable = this._http.getTask(this.listId, task_id);
+    observable.subscribe(data => {
+      console.log(data[0].task[0]);
+      this.editTask.setValue({
+        _id: data[0].task[0]._id,
+        text: data[0].task[0].text,
+        due: data[0].task[0].due,
+        priority: data[0].task[0].priority
+      })
     })
   }
 
@@ -71,6 +95,15 @@ export class TaskComponent implements OnInit {
     })
   }
 
+  updateTask() {
+    console.log(this.editTask.value);
+    let observable = this._http.updateTask(this.listId, this.editTask.value);
+    observable.subscribe(data => {
+      console.log(data);
+      this.ngOnInit();
+    })
+  }
+
   deleteList() {
     let observable = this._http.deleteList(this.listId);
     observable.subscribe(data => {
@@ -87,9 +120,5 @@ export class TaskComponent implements OnInit {
       // console.log(data);
     })
   }
-
-
-
-
 
 }

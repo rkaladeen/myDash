@@ -9,7 +9,7 @@ const routes: Routes = [
     path: "reminders", 
     component: TaskListComponent, 
     children: [
-      { path: ":id", component: TaskComponent } 
+      { path: ":id", component: TaskComponent }
     ]
   },
 

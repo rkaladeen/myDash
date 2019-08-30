@@ -7,9 +7,11 @@ const TaskSchema = new mongoose.Schema({
   },
   due: {
     type: Date,
+    default: ""
   },
   priority: {
     type: String,
+    default: ""
   },
   completed: {
     type: Boolean,

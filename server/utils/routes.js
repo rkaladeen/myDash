@@ -10,5 +10,9 @@ module.exports = app => {
   app.put("/reminder/:_id/add", Lists.addTask);
   app.put("/reminder/:_id/remove", Lists.removeTask);
   app.put("/reminder/:_id/check", Lists.checkTask);
+  app.put("/reminder/:_id/find", Lists.getOneTask);
+  app.put("/reminder/:_id/update", Lists.updateTask);
+
+
 
 }
