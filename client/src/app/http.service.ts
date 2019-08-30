@@ -23,12 +23,16 @@ export class HttpService {
     return this._http.put(`/reminder/${updateList['_id']}`, updateList);
   }
 
-  deleteList(deleteList: string) {
-    return this._http.delete(`/reminder/${deleteList}`);
+  deleteList(list_id: string) {
+    return this._http.delete(`/reminder/${list_id}`);
   }
 
   addTask(list_id:string, newTask: object) {
     return this._http.put(`/reminder/${list_id}/add`, newTask);
+  }
+
+  deleteTask(list_id:string, task_id:string) {
+    return this._http.put(`/reminder/${list_id}/add`, list_id);
   }
 
   checkTask(list_id:string, taskUpdate: object) {

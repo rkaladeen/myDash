@@ -8,5 +8,7 @@ module.exports = app => {
   app.delete("/reminder/:_id", Lists.remove);
   //Task Routes
   app.put("/reminder/:_id/add", Lists.addTask);
+  app.put("/reminder/:_id/remove", Lists.removeTask);
   app.put("/reminder/:_id/check", Lists.checkTask);
+
 }

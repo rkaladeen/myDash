@@ -33,9 +33,13 @@ class TaskListController {
       .then(() => res.json({ status: "Task added" }))
       .catch(err => res.json(err));
   }
+  removeTask(req, res) {
+    TaskList.findOneAndUpdate({ "_id": req.params._id }, {$pull: {"task._id": req.body._id}})
+      .then(() => res.json({ status: "Task removed" }))
+      .catch(err => res.json(err));
+  }
   checkTask(req, res) {
-    let task = TaskList.findOne({ _id: req.params._id });
-    task.findOneAndUpdate({ _id: req.body._id }, {$set: {completed: req.body.completed}})
+    TaskList.findOneAndUpdate({ "_id": req.params._id, "task._id": req.body._id  }, {"$set": {"task.$.completed": req.body.completed}})
       .then(() => res.json({ status: "Task status changed" }))
       .catch(err => res.json(err));
   }

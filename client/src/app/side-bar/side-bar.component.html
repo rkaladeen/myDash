@@ -1,18 +1,8 @@
 <nav class="navbar navbar-light ml-2" style="width: 250px;">
     <ul class="navbar-nav mr-auto d-block w-100">
-      <li class="nav-item bg-light">
-        <button class="nav-link btn" 
-                routerLinkActive="btn-primary text-white" 
-                [routerLinkActiveOptions]="{ exact: true }" 
-                routerLink="/dashboard">
-                <i class="fas fa-th mr-2"></i>
-                <small>MY DASHBOARD</small>
-        </button>
-      </li>
-      <li class="nav-item" *ngFor="let link of links; index as i">
+      <li class="nav-item shadow-sm" *ngFor="let link of links; index as i">
         <button class="nav-link btn btn-light" 
                 routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }" 
                 routerLink="{{ link[i].route }}">
                 <i class="{{ link[i].fa_icon }} mr-2"></i>
                 <small>{{ link[i].label | uppercase }}</small>

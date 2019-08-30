@@ -19,6 +19,15 @@ export class TaskListComponent implements OnInit {
     this.listForm();
   }
 
+  onChange(event) {
+    //event.ngOnInit(); Using event variable one can call any child function
+    //Below will subscribe to the searchItem emitter
+    event.updateList.subscribe((data) => {
+       // Will receive the data from child here 
+       this.ngOnInit();
+    })
+  }
+
   listForm () {
     this.newList = new FormGroup ({
       title: new FormControl ('', 
@@ -34,19 +43,16 @@ export class TaskListComponent implements OnInit {
     let observable = this._http.getAllLists();
     observable.subscribe(data => {
       this.lists = data;
-      console.log(this.lists);
+      // console.log(this.lists);
     })
   }
 
   addList() {
     let observable = this._http.createList(this.newList.value);
     observable.subscribe(data => {
-      console.log(data);
       this.ngOnInit();
+      // console.log(data);
     })
-
   }
-
-  
 
 }

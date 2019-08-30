@@ -1,20 +1,43 @@
 
-<div class="jumbotron bg-light py-2 mb-0 border-bottom row mx-0">
-  <h4>{{ taskTitle }} Reminders</h4>
+<div class="jumbotron bg-light py-2 shadow">
+
+
+<div class="jumbotron bg-light py-2 mb-0 border-bottom mx-0 d-flex justify-content-between align-items-center">
+  <div>
+    <h4 class="d-inline">{{ taskTitle }} Reminders</h4>
+    <button class="btn btn-link btn-sm">Hide Completed</button>
+  </div>
+
+  <button class="btn fas fa-times text-muted" (click)="deleteList()"></button>
 </div>
 
 <div *ngFor="let item of tasks; index as i" class="jumbotron bg-light py-2 mb-0 border-bottom">
-  <i class="d-inline mr-2 far" [ngClass]="{'fa-check-square':item.completed, 'fa-square':!item.completed}" (click)="checkTask(item._id, !item.completed)"></i>
-  <p class="d-inline">{{ item.text }}</p>
+  <div class=" d-flex justify-content-between align-items-center">
+    <div>
+      <button class="btn d-inline mr-2 " [ngClass]="{'fas fa-check text-success':item.completed, 'far fa-square text-muted':!item.completed}" (click)="checkTask(item._id, !item.completed)"></button>
+      <p class="d-inline">{{ item.text }}</p>
+    </div>
+    <div>
+        <button class="btn fas fa-pencil-alt text-muted mr-2"></button>
+      <!-- <i class="fas fa-eraser text-danger"></i> -->
+    </div>
+  </div>
+  
   <small class="d-block">{{ item.due | date:shortDate }}</small>
 </div>
 
 <form class="jumbotron bg-light py-2 mb-0 border-bottom row mx-0" [formGroup]="newTask">
-  <input type="text" class="form-control col-9" formControlName="text">
-  <button class="btn btn-primary col-2 offset-1"
+  <input type="text" class="form-control col-9" formControlName="text" placeholder="New Task (3+ Characters)">
+  <button class="btn btn-outline-secondary col-2 offset-1"
      (click)="addTask()" [disabled]="!newTask.valid">
      <i class="fas fa-plus">
      <span style="font-family: 'Mukta', sans-serif;">
       Add Task</span></i>
      </button>
     </form>
+
+  </div>
+
+  <!-- <div>
+    <button type="button" (click)="search('test')">search</button>
+  </div> -->

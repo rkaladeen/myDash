@@ -7,13 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavBarComponent implements OnInit {
   links: any = [
-    { 0: { route: "/reminders", fa_icon: "fas fa-tasks", label: "reminders" } },
-    { 1: { route: "/schedule", fa_icon: "fas fa-tasks", label: "schedule" } },
-    { 2: { route: "/goals", fa_icon: "fas fa-tasks", label: "goals" } },
-    { 3: { route: "/finance", fa_icon: "fas fa-tasks", label: "finance" } },
-    { 4: { route: "/news", fa_icon: "fas fa-tasks", label: "news" } },
-    { 5: { route: "/weather", fa_icon: "fas fa-tasks", label: "weather" } }
-  ]
+    { 0: { route: "/dashboard", fa_icon: "fas fa-th", label: "dashboard" } },
+    { 1: { route: "/reminders", fa_icon: "fas fa-tasks", label: "reminders" } },
+    { 2: { route: "/schedule", fa_icon: "far fa-calendar-alt", label: "schedule" } },
+    { 3: { route: "/goals", fa_icon: "fas fa-bullseye", label: "goals" } },
+    { 4: { route: "/finance", fa_icon: "fas fa-hand-holding-usd", label: "finance" } },
+    { 5: { route: "/news", fa_icon: "fas fa-newspaper", label: "news" } },
+    { 6: { route: "/weather", fa_icon: "fas fa-cloud-sun-rain", label: "weather" } }
+   ]
   constructor() { }
 
   ngOnInit() {
