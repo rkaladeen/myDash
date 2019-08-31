@@ -11,7 +11,10 @@ import { HttpService } from '../../http.service';
 export class TaskComponent implements OnInit {
   listId: any;
   taskTitle: any;
-  tasks: any;
+  allTasks: any;
+  incompletedTask: any;
+  completedTask: any;
+  hideCompleted: boolean = true;
   newTask: FormGroup;
   editTask: FormGroup
   @Output() updateList: EventEmitter<any> = new EventEmitter();
@@ -26,6 +29,10 @@ export class TaskComponent implements OnInit {
     this.getParam();
     this.taskForm();
     this.editForm();
+  }
+
+  switch() {
+    this.hideCompleted = !this.hideCompleted;
   }
 
   taskForm() {
@@ -48,14 +55,14 @@ export class TaskComponent implements OnInit {
     })
   }
 
-  fillForm(task_id) {
+  fillForm(task_id: string) {
     let observable = this._http.getTask(this.listId, task_id);
     observable.subscribe(data => {
-      console.log(data[0].task[0]);
+      // console.log(data[0].task[0]);
       this.editTask.setValue({
-        _id: data[0].task[0]._id,
-        text: data[0].task[0].text,
-        due: data[0].task[0].due,
+             _id: data[0].task[0]._id,
+            text: data[0].task[0].text,
+             due: data[0].task[0].due,
         priority: data[0].task[0].priority
       })
     })
@@ -72,9 +79,21 @@ export class TaskComponent implements OnInit {
   getTasks() {
     let observable = this._http.getOneList(this.listId);
     observable.subscribe(data => {
-      this.tasks = data['task'];
+      this.allTasks = data['task'];
       this.taskTitle = data['title']
-      // console.log(this.tasks);
+      let temp1 = [];
+      let temp2 = [];
+
+      for (let item of this.allTasks) {
+        if (!item.completed) {
+          temp1.push(item);
+        } else {
+          temp2.push(item);
+        }
+      }
+      this.incompletedTask = temp1;
+      this.completedTask = temp2;
+      // console.log(this.completedTask);
     })
   }
 
@@ -99,8 +118,8 @@ export class TaskComponent implements OnInit {
     console.log(this.editTask.value);
     let observable = this._http.updateTask(this.listId, this.editTask.value);
     observable.subscribe(data => {
-      console.log(data);
       this.ngOnInit();
+      console.log(data);
     })
   }
 
@@ -119,6 +138,11 @@ export class TaskComponent implements OnInit {
       this.ngOnInit();
       // console.log(data);
     })
+  }
+
+  isClicked(event) {
+    console.log(event);
+    this.editTask.controls['priority'].setValue(event.target.innerText)
   }
 
 }

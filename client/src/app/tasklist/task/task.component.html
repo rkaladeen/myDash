@@ -1,18 +1,24 @@
 
 <div class="jumbotron bg-light py-2 shadow">
 
-
   <div class="jumbotron bg-light py-2 mb-0 border-bottom mx-0 d-flex justify-content-between align-items-center">
     <div>
       <h4 class="d-inline">{{ taskTitle }} Reminders</h4>
-      <button class="btn btn-link btn-sm">Hide Completed</button>
+      <button class="btn btn-link btn-sm" 
+              (click)="switch()"
+              data-toggle="collapse"
+              data-target="#completedList"
+              aria-expanded="false" 
+              aria-controls="completedList"
+              [innerHTML]='hideCompleted? "Show Completed":"Hide Completed"'>
+      </button>
     </div>
-
     <button class="btn fas fa-times text-muted" (click)="deleteList()"></button>
   </div>
 
-<div *ngFor="let item of tasks; index as i" 
+<div *ngFor="let item of incompletedTask; index as i"
      class="jumbotron bg-light py-2 mb-0 border-bottom">
+
   <div class=" d-flex justify-content-between align-items-center">
     <div>
       <button class="btn d-inline mr-2 " 
@@ -33,35 +39,48 @@
   <small class="" [ngClass]="{'d-none':item.due === null}">{{ item.due | date:shortDate }} | &nbsp;</small>
   <small class="d-inline" [ngClass]="{'text-danger':item.priority === 'High', 'text-warning':item.priority === 'Med', 'text-muted':item.priority === 'Low', 'd-none':item.priority === ''}">{{ item.priority }}</small>
     
-  <form class="collapse mt-1" 
+  <form class="collapse mt-1 bg-white p-3" 
         id="x{{ item._id }}"
         [formGroup]="editTask">
     
     <div class="form-row">
-      <input type="text" 
-             class="form-control form-control-sm col-12" 
-             formControlName="text" 
-             value="{{ editTask.value.text }}">
+      <div class="form-group col-12">
+        <label class="text-small">Edit Reminder</label>
+        <input type="text" 
+               class="form-control form-control-sm" 
+               formControlName="text" 
+               value="{{ editTask.value.text }}">
+      </div>
+    
     </div>
 
     <div class="form-row">
-
-      <input type="date" 
-             class="form-control form-control-sm col-sm-6" 
-             formControlName="due" 
-             value="{{ editTask.value.due }}">
-             
-      <select class="custom-select custom-select-sm col-sm-6" formControlName="priority">
-        <option selected>{{ editTask.value.priority }}</option>
-        <option>Low</option>
-        <option>Med</option>
-        <option>High</option>
-      </select>
+      <div class="form-group col-sm-6">
+        <label>Due Date:</label>
+        <input type="date" 
+               class="form-control form-control-sm" 
+               formControlName="due" 
+               value="{{ editTask.value.due }}">
+      </div>
+      <div class="form-group col-sm-6">
+        <label class="d-block">Priority: </label>
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+          <label class="btn btn-outline-secondary btn-sm" (click)="isClicked($event)" [ngClass]="{'active': item.priority === 'Low'}">
+            <input type="radio" name="priority" formControlName="priority" id="option1" autocomplete="off"> Low
+          </label>
+          <label class="btn btn-outline-warning btn-sm" (click)="isClicked($event)" [ngClass]="{'active': item.priority === 'Med'}">
+            <input type="radio" name="priority" formControlName="priority" id="option2" autocomplete="off"> Med
+          </label>
+          <label class="btn btn-outline-danger btn-sm" (click)="isClicked($event)" [ngClass]="{'active': item.priority === 'High'}">
+            <input type="radio" name="priority" formControlName="priority" id="option3" autocomplete="off"> High
+          </label>
+        </div>
+      </div>
     </div>
-    <button class="form-row btn btn-outline-warning btn-sm" (click)="updateTask()">Update</button>
+    <button class="btn btn-outline-warning btn-sm" (click)="updateTask()">Update</button>
   </form>
 
-</div>
+</div> <!--End of Loop-->
 
 <form class="jumbotron bg-light py-2 mb-0 border-bottom row mx-0" 
       [formGroup]="newTask">
@@ -78,7 +97,35 @@
           </span></i>
   </button>
 </form>
+</div> <!--End of Reminder List-->
 
+
+<div class="jumbotron bg-light py-2 shadow collapse" id="completedList" [ngClass]="{'d-none': completedTask?.length == 0}">
+    <div class="jumbotron bg-light py-2 mb-0 border-bottom mx-0">
+        
+            <h4>Completed Reminders</h4>
+          
+      </div>
+  
+<div *ngFor="let item of completedTask; index as i"
+     class="jumbotron bg-light py-2 mb-0 border-bottom">
+
+  <div class=" d-flex justify-content-between align-items-center">
+    <div>
+      <button class="btn d-inline mr-2 " 
+              [ngClass]="{'fas fa-check text-success':item.completed, 'far fa-square text-muted':!item.completed}" 
+              (click)="checkTask(item._id, !item.completed)">
+      </button>
+      <p class="d-inline">{{ item.text }}</p>
+    </div>
+  </div>
+    
+  <small class="" [ngClass]="{'d-none':item.due === null}">Marked Complete On: {{ item.updatedAt | date:'medium' }}</small>
+  
+    
+ 
+
+</div> <!--End of Loop-->
 </div>
 
 
